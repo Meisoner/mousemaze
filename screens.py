@@ -16,13 +16,15 @@ def gameover(win):
     else:
         title = 'Вы проиграли :('
     txt = font.render(title, True, (0, 0, 0))
-    buttons = ['', 'Выйти', '']
+    buttons = ['', '', '']
     if win:
         buttons[0] = 'Следующий'
+        buttons[1] = 'Выйти'
         if not status[1]:
             buttons[2] = 'Сложнее!'
     else:
         buttons[0] = 'Ещё раз'
+        buttons[1] = 'Пропустить'
         if status[1]:
             buttons[2] = 'Легче'
     rend_buttons = []
@@ -53,7 +55,10 @@ def gameover(win):
                     else:
                         return 1
                 if size[0] - 400 <= mx <= size[0] - 150 and 200 <= my <= 260:
-                    return 3
+                    if win:
+                        return 3
+                    else:
+                        return 2
                 if buttons[2] and size[0] // 2 - 125 <= mx <= size[0] // 2 + 125 and 320 <= 380:
                     status[1] = not status[1]
                     return 2
