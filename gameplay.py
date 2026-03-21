@@ -18,7 +18,7 @@ while status[0] != 3:
                     else:
                         chance = 11
                 else:
-                    chance = 17
+                    chance = 18
                 if not rand(chance):
                     Wall(walls, x * 10, y * 10, rand(2), 2 + rand(5))
     status[0] = gamestart()
@@ -26,12 +26,15 @@ while status[0] != 3:
         clock.tick(240)
         scr.fill((150, 150, 150))
         walls.draw(scr)
+        pg.draw.ellipse(scr, (0, 0, 200), (size[0] - 50, size[1] - 50, 50, 50))
         pg.display.flip()
         for i in pg.event.get():
             if i.type == pg.QUIT:
                 status[0] = 3
             if i.type == pg.MOUSEMOTION:
                 mx, my = i.pos
+                if mx >= size[0] - 50 and my >= size[1] - 50:
+                    status[0] = gameover(True)
                 walls.update(mx, my)
                 if mx == 0 or mx == size[0] - 1 or my == 0 or my == size[1] - 1:
                     status[0] = gameover(False)

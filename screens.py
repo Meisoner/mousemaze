@@ -40,8 +40,8 @@ def gameover(win):
                   200 + (60 - rend_buttons[1].get_height()) // 2))
         if buttons[2]:
             pg.draw.rect(scr, (50, 50, 50), (size[0] // 2 - 125, 320, 250, 60))
-            scr.blit(rend_buttons[2], (size[0] - 400 + (250 - rend_buttons[2].get_width()) // 2,
-                                       200 + (60 - rend_buttons[2].get_height()) // 2))
+            scr.blit(rend_buttons[2], (size[0] // 2 - 125 + (250 - rend_buttons[2].get_width()) // 2,
+                                       320 + (60 - rend_buttons[2].get_height()) // 2))
         for i in pg.event.get():
             if i.type == pg.QUIT:
                 return 3
