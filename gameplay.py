@@ -5,11 +5,16 @@ from wall import Wall
 mx, my = 0, 0
 walls = pg.sprite.Group()
 ext[0] = gamestart()
-for x in range(100):
-    for y in range(60):
-        if 0 <= x <= 5 and 0 <= y <= 5:
+grid = size[0] // 10, size[1] // 10
+for x in range(grid[0]):
+    for y in range(grid[1]):
+        if x <= 5 and y <= 5 or x >= grid[0] - 10 and y >= grid[1] - 10:
             continue
-        if not rand(12):
+        if x <= 20 and y <= 20 or x >= grid[0] - 25 and y >= grid[1] - 25:
+            chance = 14
+        else:
+            chance = 10
+        if not rand(chance):
             Wall(walls, x * 10, y * 10, rand(3), 2 + rand(5))
 while not ext[0]:
     for i in pg.event.get():
