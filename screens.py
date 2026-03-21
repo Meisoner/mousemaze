@@ -1,17 +1,25 @@
 import pygame as pg
 
-ext = [False]
+ext = [False, True]
 pg.init()
 size = (1000, 600)
 scr = pg.display.set_mode(size)
+font = pg.font.Font(None, 50)
 clock = pg.time.Clock()
 def gameover():
-    return True
+    txt = font.render('Вы проиграли!', True, (0, 0, 0))
+    while True:
+        clock.tick(240)
+        for i in pg.event.get():
+            if i.type == pg.QUIT:
+                return True
+        scr.fill((150, 150, 150))
+        scr.blit(txt, (size[0] // 2 - txt.get_width() // 2, 0))
+        pg.display.flip()
 
 def gamestart():
     global scr, size
 
-    font = pg.font.Font(None, 50)
     txt = font.render('мышку на красный кружочек', True, (0, 0, 0))
     while True:
         clock.tick(240)
