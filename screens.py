@@ -27,6 +27,8 @@ def gameover(win):
         buttons[1] = 'Пропустить'
         if status[1]:
             buttons[2] = 'Легче'
+        else:
+            buttons[2] = 'Выйти'
     rend_buttons = []
     for i in buttons:
         rend_buttons += [font.render(i, True, (255, 255, 255))]
@@ -60,6 +62,8 @@ def gameover(win):
                     else:
                         return 2
                 if buttons[2] and size[0] // 2 - 125 <= mx <= size[0] // 2 + 125 and 320 <= 380:
+                    if buttons[2] == 'Выйти':
+                        return 3
                     status[1] = not status[1]
                     return 2
         pg.display.flip()
