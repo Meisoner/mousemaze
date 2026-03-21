@@ -36,6 +36,7 @@ while status[0] != 3:
                 mx, my = i.pos
                 if mx >= size[0] - 50 and my >= size[1] - 50:
                     status[0] = gameover(True)
-                walls.update(mx, my)
-                if mx == 0 or mx == size[0] - 1 or my == 0 or my == size[1] - 1:
+                elif mx == 0 or mx == size[0] - 1 or my == 0 or my == size[1] - 1:
                     status[0] = gameover(False)
+                if status[0] != 2:
+                    walls.update(mx, my)
