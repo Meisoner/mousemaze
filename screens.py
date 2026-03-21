@@ -4,7 +4,7 @@ ext = [False]
 pg.init()
 size = (1000, 600)
 scr = pg.display.set_mode(size)
-
+clock = pg.time.Clock()
 def gameover():
     return True
 
@@ -14,6 +14,7 @@ def gamestart():
     font = pg.font.Font(None, 50)
     txt = font.render('мышку на красный кружочек', True, (0, 0, 0))
     while True:
+        clock.tick(240)
         for i in pg.event.get():
             if i.type == pg.QUIT:
                 return True

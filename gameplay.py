@@ -11,12 +11,13 @@ for x in range(grid[0]):
         if x <= 5 and y <= 5 or x >= grid[0] - 10 and y >= grid[1] - 10:
             continue
         if x <= 20 and y <= 20 or x >= grid[0] - 25 and y >= grid[1] - 25:
-            chance = 14
+            chance = 15
         else:
-            chance = 10
+            chance = 11
         if not rand(chance):
             Wall(walls, x * 10, y * 10, rand(3), 2 + rand(5))
 while not ext[0]:
+    clock.tick(240)
     for i in pg.event.get():
         if i.type == pg.QUIT:
             ext = True
