@@ -3,7 +3,7 @@ import pygame as pg
 ext = [False]
 pg.init()
 size = (1000, 600)
-scr = pg.display.set_mode((1000, 600))
+scr = pg.display.set_mode(size)
 
 def gameover():
     return True

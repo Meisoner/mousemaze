@@ -11,7 +11,6 @@ class Wall(pg.sprite.Sprite):
             self.image = pg.Surface((length * 10, 10))
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = x, y
-        print(self.rect)
 
     def update(self, mx, my):
         if self.rect[0] <= mx <= self.rect[0] + self.rect[2] and self.rect[1] <= my <= self.rect[1] + self.rect[3]:
