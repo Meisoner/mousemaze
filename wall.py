@@ -1,5 +1,5 @@
 import pygame as pg
-from screens import gameover, ext
+from screens import gameover, status
 
 
 class Wall(pg.sprite.Sprite):
@@ -14,4 +14,4 @@ class Wall(pg.sprite.Sprite):
 
     def update(self, mx, my):
         if self.rect[0] <= mx <= self.rect[0] + self.rect[2] and self.rect[1] <= my <= self.rect[1] + self.rect[3]:
-            ext[0] = gameover()
+            status[0] = gameover(False)
