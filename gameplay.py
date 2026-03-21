@@ -2,6 +2,7 @@ from screens import *
 from random import randrange as rand
 from wall import Wall
 
+pg.display.set_caption('Mouse maze')
 mx, my = 0, 0
 walls = pg.sprite.Group()
 grid = size[0] // 10, size[1] // 10
@@ -18,7 +19,7 @@ while status[0] != 3:
                     else:
                         chance = 11
                 else:
-                    chance = 18
+                    chance = 19
                 if not rand(chance):
                     Wall(walls, x * 10, y * 10, rand(2), 2 + rand(5))
     status[0] = gamestart()
