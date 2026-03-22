@@ -40,7 +40,7 @@ def gameover(win):
     for i in buttons:
         rend_buttons += [font.render(i, True, (255, 255, 255))]
     while True:
-        clock.tick(240)
+        clock.tick(60)
         scr.fill((150, 150, 150))
         scr.blit(txt, (size[0] // 2 - txt.get_width() // 2, 0))
         pg.draw.rect(scr, (50, 50, 50), (150, 200, 250, 60))
@@ -81,7 +81,7 @@ def gamestart():
 
     txt = font.render('Мышку на красный кружочек', True, (0, 0, 0))
     while True:
-        clock.tick(240)
+        clock.tick(60)
         for i in pg.event.get():
             if i.type == pg.QUIT:
                 return 3
