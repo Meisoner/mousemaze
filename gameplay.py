@@ -48,12 +48,12 @@ while status[0] != 3:
                 status[0] = 3
             if i.type == pg.MOUSEMOTION:
                 mx, my = i.pos
-                # Случай победы - попадание в синий кружок
-                if mx >= size[0] - 50 and my >= size[1] - 50:
-                    status[0] = gameover(True)
                 # Случай поражения - выход за пределы экрана
-                elif mx == 0 or mx == size[0] - 1 or my == 0 or my == size[1] - 1:
+                if mx <= 0 or mx >= size[0] - 1 or my <= 0 or my >= size[1] - 1:
                     status[0] = gameover(False)
+                # Случай победы - попадание в синий кружок
+                elif mx >= size[0] - 50 and my >= size[1] - 50:
+                    status[0] = gameover(True)
                 elif status[0] != 2:
                     # Если по результатам предыдущих не надо перерисовывать уровень, передаём координаты стенам
                     walls.update(mx, my)
