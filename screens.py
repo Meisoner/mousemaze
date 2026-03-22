@@ -2,7 +2,7 @@ import pygame as pg
 
 # Переменная статуса игры
 # Во второй ячейке указано, включён ли усложнённый режим
-# Смысл начений в первой:
+# Смысл значений в первой:
 # 0 - игра запущена, 1 - повторить уровень заново, 2 - создать новый уровень, 3 - выйти из игры
 status = [2, False]
 pg.init()
@@ -10,6 +10,8 @@ size = (1000, 600)
 scr = pg.display.set_mode(size)
 font = pg.font.Font(None, 50)
 clock = pg.time.Clock()
+
+# Экран окончания игры
 def gameover(win):
     pg.mixer.music.stop()
     if win:
@@ -69,6 +71,7 @@ def gameover(win):
                     return 2
         pg.display.flip()
 
+# Экран начала игры (чтобы пользователь поставил курсор в нужное положение)
 def gamestart():
     global scr, size
 

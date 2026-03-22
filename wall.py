@@ -2,6 +2,7 @@ import pygame as pg
 from screens import gameover, status
 
 
+# Класс стены
 class Wall(pg.sprite.Sprite):
     def __init__(self, group, x, y, vert, length):
         super().__init__(group)
@@ -13,5 +14,6 @@ class Wall(pg.sprite.Sprite):
         self.rect.x, self.rect.y = x, y
 
     def update(self, mx, my):
+        # Проверяем, заехал ли курсор в стену
         if self.rect[0] <= mx <= self.rect[0] + self.rect[2] and self.rect[1] <= my <= self.rect[1] + self.rect[3]:
             status[0] = gameover(False)
