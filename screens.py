@@ -11,6 +11,7 @@ scr = pg.display.set_mode(size)
 font = pg.font.Font(None, 50)
 clock = pg.time.Clock()
 def gameover(win):
+    pg.mixer.music.stop()
     if win:
         title = 'Вы выиграли!'
     else:
