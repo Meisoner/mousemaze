@@ -75,7 +75,7 @@ def gameover(win):
 def gamestart():
     global scr, size
 
-    txt = font.render('мышку на красный кружочек', True, (0, 0, 0))
+    txt = font.render('Мышку на красный кружочек', True, (0, 0, 0))
     while True:
         clock.tick(240)
         for i in pg.event.get():
