@@ -2,11 +2,19 @@ from screens import *
 from random import randrange as rand
 from wall import Wall
 
+icon = pg.image.load("banana.png").convert_alpha()
+pg.display.set_icon(icon)
 pg.display.set_caption('Mouse maze')
 mx, my = 0, 0
 walls = pg.sprite.Group()
 grid = size[0] // 10, size[1] // 10
 while status[0] != 3:
+    if status[1]:
+        pg.mixer.music.load('music/hard.mp3')
+    else:
+        pg.mixer.music.load('music/easy.mp3')
+    pg.mixer.music.play()
+    pg.mixer.music.set_volume(0.3)
     if status[0] == 2:
         walls.empty()
         for x in range(grid[0]):
