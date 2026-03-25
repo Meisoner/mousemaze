@@ -69,7 +69,7 @@ while status[0] != 3:
                 status[0] = 3
             if i.type == pg.MOUSEMOTION:
                 # Если мышка быстро далеко переместилась, это странно
-                if mx != -1 and (abs(i.pos[0] - mx) > 15 or abs(i.pos[1] - my) > 15):
+                if mx != -1 and (abs(i.pos[0] - mx) > 20 or abs(i.pos[1] - my) > 20):
                     status[0] = gameover(False)
                     break
                 mx, my = i.pos
