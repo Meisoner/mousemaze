@@ -13,7 +13,10 @@ class Wall(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = x, y
 
+    def inside(self, mx, my):
+        return self.rect[0] <= mx <= self.rect[0] + self.rect[2] and self.rect[1] <= my <= self.rect[1] + self.rect[3]
+
     def update(self, mx, my):
         # Проверяем, заехал ли курсор в стену
-        if self.rect[0] <= mx <= self.rect[0] + self.rect[2] and self.rect[1] <= my <= self.rect[1] + self.rect[3]:
+        if self.inside(mx, my):
             status[0] = gameover(False)
