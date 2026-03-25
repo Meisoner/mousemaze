@@ -55,7 +55,7 @@ while status[0] != 3:
             # Шанс изменения увеличивается со временем
             chch -= tick / max(900 - status[1] * 100, 150)
             # В случайном режиме карта меняется прямо во время игры
-            if not rand(max(int(chch), 3)):
+            if not rand(max(int(chch), 2 + int(status[1] < 8))):
                 if rand(2):
                     x, y = rand(grid[0]) * 10, rand(grid[1]) * 10
                     w = Wall(walls, x, y, rand(2), 2 + rand(5))
