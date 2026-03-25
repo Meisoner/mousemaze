@@ -8,12 +8,17 @@ pg.display.set_caption('Mouse maze')
 walls = pg.sprite.Group()
 grid = size[0] // 10, size[1] // 10
 while status[0] != 3:
-    if status[1]:
+    if status[1] >= 2:
+        pg.mixer.music.load('music/random.mp3')
+    elif status[1] == 1:
         pg.mixer.music.load('music/hard.mp3')
     else:
         pg.mixer.music.load('music/easy.mp3')
-    pg.mixer.music.play()
-    pg.mixer.music.set_volume(0.3)
+    pg.mixer.music.play(-1)
+    vol = 0.3
+    if status[1] >= 2:
+        vol = 0.7
+    pg.mixer.music.set_volume(vol)
     if status[0] == 2:
         # Создаём новый уровень
         walls.empty()
