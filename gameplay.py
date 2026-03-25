@@ -21,12 +21,15 @@ while status[0] != 3:
             for y in range(grid[1]):
                 if x <= 7 and y <= 7 or x >= grid[0] - 10 and y >= grid[1] - 10:
                     continue
-                if status[1]:
+                if status[1] == 1:
                     # В сложном режиме в начале вероятность появления стены 1/16, потом 1/11
                     if x <= 20 and y <= 20 or x >= grid[0] - 20 and y >= grid[1] - 20:
                         chance = 16
                     else:
                         chance = 11
+                elif status[1] == 2:
+                    chance = 12
+                    chch = 30
                 else:
                     # Если режим лёгкий, то сена появляется с вероятностью 1/19
                     # Оптимальные значения были найдены экспериментально
@@ -36,13 +39,26 @@ while status[0] != 3:
     status[0] = gamestart()
     mx, my = -1, -1
     while status[0] == 0:
-        clock.tick(240)
+        tick = clock.tick(240)
         scr.fill((150, 150, 150))
         # Рисуем стены
         walls.draw(scr)
         # Рисуем синий кружок
         pg.draw.ellipse(scr, (0, 0, 200), (size[0] - 50, size[1] - 50, 50, 50))
         pg.display.flip()
+        if status[1] == 2:
+            # Шанс изменения увеличивается со временем
+            chch -= tick / 500
+            # В случайном режиме карта меняется прямо во время игры
+            if not rand(max(int(chch), 3)):
+                if rand(2):
+                    x, y = rand(grid[0]) * 10, rand(grid[1]) * 10
+                    w = Wall(walls, x, y, rand(2), 2 + rand(5))
+                    # Проверяем, что новая стена не заставит игрока тут же проиграть
+                    if w.inside(mx, my):
+                        walls.remove(w)
+                elif walls:
+                    walls.remove(walls.sprites()[rand(len(walls))])
         for i in pg.event.get():
             if i.type == pg.QUIT:
                 status[0] = 3

@@ -4,7 +4,7 @@ import pygame as pg
 # Во второй ячейке указано, включён ли усложнённый режим
 # Смысл значений в первой:
 # 0 - игра запущена, 1 - повторить уровень заново, 2 - создать новый уровень, 3 - выйти из игры
-status = [2, False]
+status = [2, 0]
 pg.init()
 size = (1000, 600)
 scr = pg.display.set_mode(size)
@@ -27,11 +27,17 @@ def gameover(win):
     if win:
         buttons[0] = 'Следующий'
         buttons[1] = 'Выйти'
-        if not status[1]:
+        if status[1] == 0:
             buttons[2] = 'Сложнее!'
+        elif status[1] == 1:
+            buttons[2] = 'Рандом!'
     else:
-        buttons[0] = 'Ещё раз'
-        buttons[1] = 'Пропустить'
+        if status[1] == 2:
+            buttons[0] = 'Пропустить'
+            buttons[1] = 'Выйти'
+        else:
+            buttons[0] = 'Ещё раз'
+            buttons[1] = 'Пропустить'
         if status[1]:
             buttons[2] = 'Легче'
         else:
@@ -59,19 +65,22 @@ def gameover(win):
             if i.type == pg.MOUSEBUTTONDOWN:
                 mx, my = i.pos
                 if 150 <= mx <= 400 and 200 <= my <= 260:
-                    if win:
+                    if win or status[1] == 2:
                         return 2
                     else:
                         return 1
                 if size[0] - 400 <= mx <= size[0] - 150 and 200 <= my <= 260:
-                    if win:
+                    if win or status[1] == 2:
                         return 3
                     else:
                         return 2
                 if buttons[2] and size[0] // 2 - 125 <= mx <= size[0] // 2 + 125 and 320 <= 380:
                     if buttons[2] == 'Выйти':
                         return 3
-                    status[1] = not status[1]
+                    if win:
+                        status[1] += 1
+                    else:
+                        status[1] -= 1
                     return 2
         pg.display.flip()
 
