@@ -27,9 +27,9 @@ while status[0] != 3:
                         chance = 16
                     else:
                         chance = 11
-                elif status[1] == 2:
-                    chance = 12
-                    chch = 30
+                elif status[1] >= 2:
+                    chance = max(16 - status[1], 9)
+                    chch = max(50 - status[1] * 5, 25)
                 else:
                     # Если режим лёгкий, то сена появляется с вероятностью 1/19
                     # Оптимальные значения были найдены экспериментально
@@ -46,9 +46,9 @@ while status[0] != 3:
         # Рисуем синий кружок
         pg.draw.ellipse(scr, (0, 0, 200), (size[0] - 50, size[1] - 50, 50, 50))
         pg.display.flip()
-        if status[1] == 2:
+        if status[1] >= 2:
             # Шанс изменения увеличивается со временем
-            chch -= tick / 500
+            chch -= tick / max(900 - status[1] * 100, 150)
             # В случайном режиме карта меняется прямо во время игры
             if not rand(max(int(chch), 3)):
                 if rand(2):

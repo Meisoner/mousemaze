@@ -4,7 +4,7 @@ import pygame as pg
 # Во второй ячейке указано, включён ли усложнённый режим
 # Смысл значений в первой:
 # 0 - игра запущена, 1 - повторить уровень заново, 2 - создать новый уровень, 3 - выйти из игры
-status = [2, 0]
+status = [2, 2]
 pg.init()
 size = (1000, 600)
 scr = pg.display.set_mode(size)
@@ -32,7 +32,7 @@ def gameover(win):
         elif status[1] == 1:
             buttons[2] = 'Рандом!'
     else:
-        if status[1] == 2:
+        if status[1] >= 2:
             buttons[0] = 'Пропустить'
             buttons[1] = 'Выйти'
         else:
@@ -45,6 +45,10 @@ def gameover(win):
     rend_buttons = []
     for i in buttons:
         rend_buttons += [font.render(i, True, (255, 255, 255))]
+    levels = ''
+    if status[1] >= 2:
+        levels = 'Пройденных уровней: ' + str(status[1] - 2 + int(win))
+    ltxt = font.render(levels, True, (0, 0, 0))
     while True:
         clock.tick(60)
         scr.fill((150, 150, 150))
@@ -59,27 +63,32 @@ def gameover(win):
             pg.draw.rect(scr, (50, 50, 50), (size[0] // 2 - 125, 320, 250, 60))
             scr.blit(rend_buttons[2], (size[0] // 2 - 125 + (250 - rend_buttons[2].get_width()) // 2,
                                        320 + (60 - rend_buttons[2].get_height()) // 2))
+        scr.blit(ltxt, (0, 300 + int(bool(buttons[2])) * 200))
         for i in pg.event.get():
             if i.type == pg.QUIT:
                 return 3
             if i.type == pg.MOUSEBUTTONDOWN:
                 mx, my = i.pos
                 if 150 <= mx <= 400 and 200 <= my <= 260:
-                    if win or status[1] == 2:
+                    if status[1] >= 2:
+                        if win:
+                            status[1] += 1
                         return 2
-                    else:
-                        return 1
+                    if win:
+                        return 2
+                    return 1
                 if size[0] - 400 <= mx <= size[0] - 150 and 200 <= my <= 260:
-                    if win or status[1] == 2:
+                    if win or status[1] >= 2:
                         return 3
-                    else:
-                        return 2
+                    return 2
                 if buttons[2] and size[0] // 2 - 125 <= mx <= size[0] // 2 + 125 and 320 <= 380:
                     if buttons[2] == 'Выйти':
                         return 3
                     if win:
                         status[1] += 1
                     else:
+                        if status[1] > 2:
+                            status[1] = 2
                         status[1] -= 1
                     return 2
         pg.display.flip()
