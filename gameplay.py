@@ -5,7 +5,6 @@ from wall import Wall
 icon = pg.image.load("banana.png").convert_alpha()
 pg.display.set_icon(icon)
 pg.display.set_caption('Mouse maze')
-mx, my = 0, 0
 walls = pg.sprite.Group()
 grid = size[0] // 10, size[1] // 10
 while status[0] != 3:
@@ -35,6 +34,7 @@ while status[0] != 3:
                 if not rand(chance):
                     Wall(walls, x * 10, y * 10, rand(2), 2 + rand(5))
     status[0] = gamestart()
+    mx, my = -1, -1
     while status[0] == 0:
         clock.tick(240)
         scr.fill((150, 150, 150))
@@ -47,6 +47,10 @@ while status[0] != 3:
             if i.type == pg.QUIT:
                 status[0] = 3
             if i.type == pg.MOUSEMOTION:
+                # Если мышка быстро далеко переместилась, это странно
+                if mx != -1 and (abs(i.pos[0] - mx) > 15 or abs(i.pos[1] - my) > 15):
+                    status[0] = gameover(False)
+                    break
                 mx, my = i.pos
                 # Случай поражения - выход за пределы экрана
                 if mx <= 0 or mx >= size[0] - 1 or my <= 0 or my >= size[1] - 1:
