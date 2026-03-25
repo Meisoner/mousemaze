@@ -21,6 +21,9 @@ def gameover(win):
     if win:
         title = 'Вы выиграли!'
     else:
+        pg.mixer.music.load('music/hurt.wav')
+        pg.mixer.music.set_volume(2)
+        pg.mixer.music.play()
         title = 'Вы проиграли :('
     txt = font.render(title, True, (0, 0, 0))
     buttons = ['', '', '']
