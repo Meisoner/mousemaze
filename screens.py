@@ -53,7 +53,7 @@ def gameover(win):
         levels = 'Пройденных уровней: ' + str(status[1] - 2 + int(win))
     ltxt = font.render(levels, True, (0, 0, 0))
     while True:
-        clock.tick(60)
+        clock.tick(30)
         scr.fill((150, 150, 150))
         scr.blit(txt, (size[0] // 2 - txt.get_width() // 2, 0))
         pg.draw.rect(scr, (50, 50, 50), (150, 200, 250, 60))
@@ -102,7 +102,7 @@ def gamestart():
 
     txt = font.render('Мышку на красный кружочек', True, (0, 0, 0))
     while True:
-        clock.tick(60)
+        clock.tick(30)
         for i in pg.event.get():
             if i.type == pg.QUIT:
                 return 3
